@@ -9,12 +9,10 @@ import config
 # INPORT NEW DATA #
 df          = pd.read_csv("スマレジ商品価格改定シート.csv", encoding='shift_jis')
 df          = df.replace(',', '', regex=True)
-df          = df[~pd.to_numeric(df["新価格"], errors="coerce").isnull()]
+df          = df[~pd.to_numeric(df["PRICE"], errors="coerce").isnull()]
 jan_list    = df["JAN"].to_list()
-price_list  = df["新価格"].to_list()
-date_list  = df["更新日"].to_list()
-
-print(date_list)
+price_list  = df["PRICE"].to_list()
+date_list   = df["DAY"].to_list()
 
 # print(jan_list)
 
