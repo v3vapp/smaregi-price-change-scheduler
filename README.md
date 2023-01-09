@@ -1,8 +1,8 @@
 create .env file for sumaregi user name and password.
 
 EXAMPLE:
-USERNAME=taro@gmail.com
-PASSWOER=abcd1234
+SUMAREGI_EMAIL=foo@gmail.com
+SUMAREGI_PASSWORD=abcd1234
 
 Your chromedriver-binary version need to same as your chrome version.
 Please fix it before instaling requirements.txt.
@@ -13,11 +13,11 @@ chromedriver-binary==108.0.5359.71
 
 --------------JAPANESE--------------------------------------------
 
-.envファイルを作成し、USERNAMEとPASSWORDを設定して下さい
+.envファイルを作成し、SUMAREGI_EMAILとSUMAREGI_PASSWORDを設定して下さい
 
 例
-USERNAME=taro@gmail.com
-PASSWOER=abcd1234
+SUMAREGI_EMAIL=foo@gmail.com
+SUMAREGI_PASSWORD=abcd1234
 
 Choromeドライバーのバージョンは、クロームと一致している必要があります。
 requirements.txtに記載されているバージョンを編集してから、インストールしてください。
@@ -30,4 +30,4 @@ chromedriver-binary==108.0.5359.71
 
 -----------------------------------------------------------------
 -----------------------------------------------------------------
-I DIDN'T KNOW ABOUT SUMAREGI API. I WILL CREATE NEW ONE WITH API.
+note: I WILL CREATE WEB APP WITH API.
