@@ -5,19 +5,23 @@ from selenium.webdriver.common.by import By
 import chromedriver_binary # pip install chromedriver-binary==108.0.5359.71
 import pandas as pd
 import config
+import os
 
-# INPORT NEW DATA #
+
+# IMPORT NEW DATA #
 df          = pd.read_csv("スマレジ商品価格改定シート.csv", encoding='shift_jis')
 df          = df.replace(',', '', regex=True)
 df          = df[~pd.to_numeric(df["PRICE"], errors="coerce").isnull()]
 jan_list    = df["JAN"].to_list()
 price_list  = df["PRICE"].to_list()
-date_list   = df["DAY"].to_list()
+date_list   = df["DATE"].to_list()
 
 # print(jan_list)
 
 # START SELENIUM #
-df_noChange = pd.DataFrame()
+list_noExist_jan = []
+list_noExist_price = []
+list_noExist_date = []
 
 #driver = webdriver.Remote('http://selenium:4444/wd/hub',desired_capabilities=DesiredCapabilities.CHROME) # docker UNAVAI
 driver = webdriver.Chrome()
@@ -37,7 +41,6 @@ try:
 
     element = driver.find_element(By.ID, "doLogin")
     element.click()
-
     
     for i in range(fin_index, len(jan_list)):
 
@@ -84,9 +87,10 @@ try:
 
         except:
             sleep(1)
-            print(f"Faild {i+1}/{len(jan_list)}. JANコード {jan} -> {price}円 {date}")
-            df_noChange["JAN"] = jan
-            df_noChange["NewPrice"] = price
+            print(f"Failed {i+1}/{len(jan_list)}. JANコード {jan} -> {price}円 {date}")
+            list_noExist_jan.append(jan)
+            list_noExist_price.append(price)
+            list_noExist_date.append(date)
 
             fin_index = i
 
@@ -95,7 +99,7 @@ try:
     print(f"{fin_index}/{len(jan_list)-1}")
 
     if fin_index == len(jan_list)-1:
-        print(f"全ての価格変更が終了しました")
+        print(f"All Price has changed. / 全ての価格変更が終了しました")
         # break
     
 except Exception as e:
@@ -103,5 +107,16 @@ except Exception as e:
 #     sleep(5)
 #     continue
 
+df_noExist = pd.DataFrame()
+df_noExist["JAN"] = list_noExist_jan
+df_noExist["PRICE"] = list_noExist_price
+df_noExist["DATE"] = list_noExist_date
+
+os.makedirs("./dist", exist_ok=True)
+df_noExist.to_csv("./dist/items_notFound.csv")
+
+print("Non Exist Items Exported")
 
 driver.quit()
+
+print("Closed Driver. Good bye.")
