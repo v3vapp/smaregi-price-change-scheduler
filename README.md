@@ -1,3 +1,5 @@
+## This app remotely controls the smaregi website and set new prices and application dates.  
+
 create .env file for sumaregi user name and password.  
   
 EXAMPLE:  
