@@ -1,14 +1,11 @@
-## This app remotely controls the smaregi website and set new prices and application dates.  
+### This app remotely controls the smaregi website and set new prices and application dates.  
 
-create .env file for sumaregi user name and password.  
+As Smaregi (POS register service) does not offer a method for scheduling price changes through their API, this application utilizes manipulation of their website and configuration to achieve this purpose.
   
-EXAMPLE:  
-SUMAREGI_EMAIL=foo@gmail.com  
-SUMAREGI_PASSWORD=abcd1234  
-  
-Your chromedriver-binary version need to same as your chrome version.  
-Please fix it before instaling requirements.txt.  
-You can check your chorome version at help page on chrome.  
-  
-EXAMPLE:  
-chromedriver-binary==108.0.5359.71  
+## Note for activation
+1, create .env file for sumaregi user name and password.  
+SMAREGI_EMAIL=foo@gmail.com   
+SMAREGI_PASSWORD=abcd1234   
+   
+2, Currently, this application depends on chromedriver-binary.  
+It requires the exact same version as your GoogleChrome.
